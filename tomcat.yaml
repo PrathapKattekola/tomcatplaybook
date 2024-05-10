@@ -25,7 +25,7 @@
     lineinfile:
       path: /usr/share/apache-tomcat-9.0.80/conf/tomcat-users.xml
       insertbefore: '</tomcat-users>'
-      line: <user username="AAdmin" password="Admin123" roles="manager-script"/>
+      line: <user username="robot" password="hitu18feb" roles="manager-script"/>
       state: present
 
   - name: updating context.xml file
