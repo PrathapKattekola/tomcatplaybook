@@ -1,24 +1,5 @@
 ---
 - name: install tomcat server
-<<<<<<< HEAD
-  hosts: tomcatserver  
-  become: true
-
-  tasks:
-  - name: Install Java 11
-    apt:
-      name: java-11
-
-  - name: download tomcat server packages
-    get_url:
-      url: https://archive.apache.org/dist/tomcat/tomcat-9/v${VER}/bin/apache-tomcat-${VER}.tar.gz
-      dest: /usr/share/
-
-  - name: extract tomcat packages
-    unarchive:
-      src: /usr/share/apache-tomcat-9.0.80.tar.gz
-      dest: /usr/share/
-=======
   hosts: all
   become: true
 
@@ -36,18 +17,13 @@
     unarchive:
       src: /usr/local/apache-tomcat-9.0.62.tar.gz
       dest: /usr/local/
->>>>>>> d107825 (Added new file)
       remote_src: yes
 
   - name: updating tomcat-users.xml file
     become: yes
     become_user: root
     lineinfile:
-<<<<<<< HEAD
-      path: /usr/share/apache-tomcat-9.0.80/conf/tomcat-users.xml
-=======
       path: /usr/local/apache-tomcat-9.0.62/conf/tomcat-users.xml
->>>>>>> d107825 (Added new file)
       insertbefore: '</tomcat-users>'
       line: <user username="robot" password="hitu18feb" roles="manager-script"/>
       state: present
@@ -56,25 +32,13 @@
     become: yes
     become_user: root
     lineinfile:
-<<<<<<< HEAD
-      path: /usr/share/apache-tomcat-9.0.80/webapps/manager/META-INF/context.xml
-=======
       path: /usr/local/apache-tomcat-9.0.62/webapps/manager/META-INF/context.xml
->>>>>>> d107825 (Added new file)
       # The String to Search
       regexp: allow="127\.\d+\.\d+\.\d+|::1|0:0:0:0:0:0:0:1" />
       # The String to Replace
       line: allow="\d+\.\d+\.\d+\.\d+" />
       state: present
       backup: yes
-      
+
   - name: start tomcat services
-<<<<<<< HEAD
-<<<<<<< HEAD
     shell: nohup /usr/local/apache-tomcat-9.0.62/bin/startup.sh
-=======
-    shell: nohup /usr/share/apache-tomcat-9.0.80/bin/startup.sh
->>>>>>> 1e03f5166a9d0330936d630a29be3db713c0a3f7
-=======
-    shell: nohup /usr/local/apache-tomcat-9.0.62/bin/startup.sh
->>>>>>> d107825 (Added new file)
