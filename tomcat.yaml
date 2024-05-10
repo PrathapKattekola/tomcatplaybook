@@ -1,29 +1,29 @@
 ---
 - name: install tomcat server
-  hosts: all
+  hosts: tomcatserver  
   become: true
 
   tasks:
-  - name: Install OpenJDK
+  - name: Install Java 11
     apt:
-      name: openjdk-11-jre-headless
+      name: java-11
 
   - name: download tomcat server packages
     get_url:
-      url: https://mirrors.estointernet.in/apache/tomcat/tomcat-9/v9.0.62/bin/apache-tomcat-9.0.62.tar.gz
-      dest: /usr/local
+      url: https://archive.apache.org/dist/tomcat/tomcat-9/v${VER}/bin/apache-tomcat-${VER}.tar.gz
+      dest: /usr/share/
 
   - name: extract tomcat packages
     unarchive:
-      src: /usr/local/apache-tomcat-9.0.62.tar.gz
-      dest: /usr/local/
+      src: /usr/share/apache-tomcat-9.0.80.tar.gz
+      dest: /usr/share/
       remote_src: yes
 
   - name: updating tomcat-users.xml file
     become: yes
     become_user: root
     lineinfile:
-      path: /usr/local/apache-tomcat-9.0.62/conf/tomcat-users.xml
+      path: /usr/share/apache-tomcat-9.0.80/conf/tomcat-users.xml
       insertbefore: '</tomcat-users>'
       line: <user username="robot" password="hitu18feb" roles="manager-script"/>
       state: present
@@ -32,7 +32,7 @@
     become: yes
     become_user: root
     lineinfile:
-      path: /usr/local/apache-tomcat-9.0.62/webapps/manager/META-INF/context.xml
+      path: /usr/share/apache-tomcat-9.0.80/webapps/manager/META-INF/context.xml
       # The String to Search
       regexp: allow="127\.\d+\.\d+\.\d+|::1|0:0:0:0:0:0:0:1" />
       # The String to Replace
@@ -41,4 +41,8 @@
       backup: yes
       
   - name: start tomcat services
+<<<<<<< HEAD
     shell: nohup /usr/local/apache-tomcat-9.0.62/bin/startup.sh
+=======
+    shell: nohup /usr/share/apache-tomcat-9.0.80/bin/startup.sh
+>>>>>>> 1e03f5166a9d0330936d630a29be3db713c0a3f7
