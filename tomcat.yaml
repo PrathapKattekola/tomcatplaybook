@@ -20,8 +20,7 @@
       remote_src: yes
 
   - name: updating tomcat-users.xml file
-    become: yes
-    become_user: root
+    become: true
     lineinfile:
       path: /usr/local/apache-tomcat-9.0.62/conf/tomcat-users.xml
       insertbefore: '</tomcat-users>'
