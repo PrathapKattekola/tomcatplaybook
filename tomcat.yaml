@@ -28,8 +28,7 @@
       state: present
 
   - name: updating context.xml file
-    become: yes
-    become_user: root
+    become: true
     lineinfile:
       path: /usr/local/apache-tomcat-9.0.62/webapps/manager/META-INF/context.xml
       # The String to Search
